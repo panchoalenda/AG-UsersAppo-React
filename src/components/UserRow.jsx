@@ -1,24 +1,43 @@
-export const UserRow = ({id, userName, email, handlerDeleteUser, handlerUpdateUser}) => {
+export const UserRow = ({
+  id,
+  userName,
+  email,
+  handlerDeleteUser,
+  handlerUserSelectedForm,
+}) => {
 
-    const deleteUser = (id) => {
-        handlerDeleteUser(id);
-    }
-    
-    const updateUser = (id) => {
-        handlerUpdateUser(id);
-    }
 
-    
-
-    return (
-        <>
-            <tr> 
-                <td>{id}</td>
-                <td>{userName}</td>
-                <td>{email}</td>
-                <td><button type="button" className="btn btn-secondary btn-sm" onClick={ ()=>updateUser(id) }>Update</button></td>
-                <td><button type="button" className="btn btn-danger btn-sm" onClick={ ()=>deleteUser(id) }>Delete</button></td>
-            </tr>
-        </>
-    )
-}
+  return (
+    <>
+      <tr>
+        <td>{id}</td>
+        <td>{userName}</td>
+        <td>{email}</td>
+        <td>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() =>
+                handlerUserSelectedForm({
+                id: id, //Si el campo se llama igual que el valor (id: id)se puede omitir, como lo hago en los siguientes campos. 
+                userName, // <-- Esto es igual a poner esto --> userName: userName 
+                email, // <-- Esto es igual a poner esto --> email: email
+              })
+            }
+          >
+            Update
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            className="btn btn-danger btn-sm"
+            onClick={() => handlerDeleteUser(id)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </>
+  );
+};

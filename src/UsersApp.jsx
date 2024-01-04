@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { UserForm } from "./components/UserForm"
 import { UsersList } from "./components/UsersList"
 import { userReducer } from "./components/reducers/usersReducer";
@@ -22,6 +22,8 @@ export const UsersApp = () => {
 
     const [users, dispatch] = useReducer(userReducer, initialUsers);
 
+    const [ userSelected, setUserSelected ] = useState(initialForm);
+
 
     const handlerAddUser = (user) => {
         //console.log('Desde handler');
@@ -42,11 +44,8 @@ export const UsersApp = () => {
         })
     }
     
-    const handlerUpdateUser = (id) => {
-        dispatch({
-            type: 'updateUser',
-            payload: id,
-        })
+    const handlerUserSelectedForm = (user) => {
+        setUserSelected({...user});
     }
     
     return (
@@ -56,14 +55,16 @@ export const UsersApp = () => {
                 <div className="row">
                     <div className="col">
 
-                        <UserForm handlerAddUser={handlerAddUser} initialForm={initialForm} />
+                        <UserForm handlerAddUser={handlerAddUser} initialForm={initialForm} userSelected={userSelected}/>
                     </div>
                     <div className="col">
 
                         {users.length === 0 ?
                             (<div className="alert alert-warning">No hay usuarios para mostrar</div>)
                             :
-                            (<UsersList users={users} handlerDeleteUser={handlerDeleteUser} />)
+                            (<UsersList users={users} 
+                                handlerDeleteUser={handlerDeleteUser}
+                                handlerUserSelectedForm = {handlerUserSelectedForm}/>)
                         }
 
                     </div>

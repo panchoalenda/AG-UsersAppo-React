@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
 
-export const UserForm = ({handlerAddUser, initialForm }) => {
+export const UserForm = ({handlerAddUser, initialForm, userSelected }) => {
 
   const [userForm, setUserForm] = useState(initialForm);
 
   const { userName, password, email } = userForm; //Desestructuro userForm
+
+useEffect(()=>{
+  setUserForm({
+    ...userSelected,
+    //password : '', //Porque el userSelected no trae el password
+  });
+}, [userSelected])
 
 
 
