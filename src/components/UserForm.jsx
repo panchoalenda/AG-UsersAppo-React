@@ -7,7 +7,7 @@ export const UserForm = ({handlerAddUser, initialForm, userSelected }) => {
 
   const [userForm, setUserForm] = useState(initialForm);
 
-  const { userName, password, email } = userForm; //Desestructuro userForm
+  const { id, userName, password, email } = userForm; //Desestructuro userForm
 
 useEffect(()=>{
   setUserForm({
@@ -64,6 +64,9 @@ useEffect(()=>{
         <div className="mb-3 form-check">
           <input type="checkbox" className="form-check-input" id="check-admin" />
           <label className="form-check-label" htmlFor="check-admin">Administrador</label>
+        </div>
+        <div>
+          <input type="hidden" name="id" value={id}/>
         </div>
         <button type="submit" className="btn btn-primary">Crear Usuario</button>
       </form>

@@ -13,6 +13,7 @@ const initialUsers = [
 ];
 
 const initialForm = {
+    id: 0,
     userName: '',
     password: '',
     email: '',

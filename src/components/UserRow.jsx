@@ -2,6 +2,7 @@ export const UserRow = ({
   id,
   userName,
   email,
+  password,
   handlerDeleteUser,
   handlerUserSelectedForm,
 }) => {
@@ -22,6 +23,7 @@ export const UserRow = ({
                 id: id, //Si el campo se llama igual que el valor (id: id)se puede omitir, como lo hago en los siguientes campos. 
                 userName, // <-- Esto es igual a poner esto --> userName: userName 
                 email, // <-- Esto es igual a poner esto --> email: email
+                password,
               })
             }
           >
