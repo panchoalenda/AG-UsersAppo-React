@@ -23,12 +23,14 @@ export const UsersApp = () => {
 
       <div className="d-flex d-flex justify-content-center my-2">
         <div className="bg-success-subtle p-2 text-dark bg-opacity-50 text-white col-md-10 d-flex d-flex justify-content-center align-items-center">
-        <img className="banner" src='https://tramite.sanjuan.gob.ar/tpf//img/logoguiatramites.png'/>  
+          <img className="banner" src='https://tramite.sanjuan.gob.ar/tpf//img/logoguiatramites.png' />
           <div className="text-center">
-            <h2>Registro de Usuarios</h2>
-            <h3>SECRETARÍA DE TRÁNSITO Y TRANSPORTE</h3>
+            <h3 className="text-dark" >SECRETARÍA DE TRÁNSITO Y TRANSPORTE</h3>
           </div>
         </div>
+      </div>
+      <div className="d-flex d-flex justify-content-center my-5">
+        <h2 className="text-dark">REGISTRO DE USUARIOS</h2>
       </div>
       <div className="container my-4 ">
         <div className="row my-5 ">
