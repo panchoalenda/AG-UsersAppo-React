@@ -39,19 +39,88 @@ export const useUsers = () => {
         });
 
         //Ventana modal
-        
-            Swal.fire({
-                title: user.id == 0 ? "Se agregó correctamente el Usuario" : "Se actualizó correctamente el Usuario",
-                text: "",
-                icon: "success"
-            });
-        
+
+        Swal.fire({
+            title: user.id == 0 ? "Se agregó correctamente el Usuario" : "Se actualizó correctamente el Usuario",
+            text: "",
+            icon: "success"
+        });
+
     };
 
     const handlerDeleteUser = (id) => {
-        dispatch({
-            type: "deleteUser",
-            payload: id,
+
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Está seguro que quiere eliminar el usuario?",
+            text: "Cuidado, el usuario será eliminado!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, eliminar usuario!",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                dispatch({
+                    type: "deleteUser",
+                    payload: id,
+                });
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            text: "Your imaginary file is safe :)",
+                            icon: "error"
+                        });
+                    }
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Eliminado!",
+                    text: "",
+                    icon: "success"
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "No se eliminó el usuario",
+                    icon: "error"
+                });
+            }
         });
     };
 

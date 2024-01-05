@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
   const [userForm, setUserForm] = useState(initialForm);
@@ -27,7 +28,13 @@ export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
     event.preventDefault();
     if (!userName || (!password && id == 0) || !email) {
       //La negacion en cada atributo pregunta si no viene con datos
-      console.log("Debe ingresar los datos");
+      //alert("Debe ingresar los datos");
+      Swal.fire({
+        icon: "error",
+        title: !userName ? "Ingrese un usuario" : (!password ? "Ingrese un password" : (email || "Ingrese un email")),
+        text: "",
+        footer: '<a href="https://tramite.sanjuan.gob.ar">San Juan Gobierno</a>'
+      });
       return;
     }
 
@@ -42,7 +49,7 @@ export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
       <form onSubmit={onSubmit}>
         <div className="mb-3">
           <label htmlFor="userName" className="form-label">
-            UserName
+            Usuario
           </label>
           <input
             type="text"
@@ -55,13 +62,12 @@ export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
             value={userName}
           />
           <div id="userNameHelp" className="form-text">
-            * Ingrese su nombre de usuario.
           </div>
         </div>
         {id > 0 || (
           <div className="mb-3">
             <label htmlFor="paswword" className="form-label">
-              Password
+              Contraseña
             </label>
             <input
               type="password"
@@ -88,6 +94,7 @@ export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
             value={email}
           />
         </div>
+        <h4>Seleccione el Rol</h4>
         <div className="mb-3 form-check">
           <input
             type="checkbox"
