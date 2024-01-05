@@ -16,6 +16,7 @@ export const userReducer = (state = [], action) => {
                 if (u.id === action.payload.id){
                     return {
                         ...action.payload,
+                        password: u.password,
                     };
                 }
                 return u;
