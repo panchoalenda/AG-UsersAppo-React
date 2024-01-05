@@ -39,19 +39,13 @@ export const useUsers = () => {
         });
 
         //Ventana modal
-        if(type == "addUser"){
-        Swal.fire({
-            title: user.id == 0 ? "Se agregó correctamente el Usuario" : "Se actualizó correctamente el Usuario",
-            text: "",
-            icon: "success"
-        });
-    } else {
-        Swal.fire({
-            title: ,
-            text: "",
-            icon: "success"
-        });
-    }
+        
+            Swal.fire({
+                title: user.id == 0 ? "Se agregó correctamente el Usuario" : "Se actualizó correctamente el Usuario",
+                text: "",
+                icon: "success"
+            });
+        
     };
 
     const handlerDeleteUser = (id) => {
