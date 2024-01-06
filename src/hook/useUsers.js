@@ -23,18 +23,14 @@ export const useUsers = () => {
 
     const [userSelected, setUserSelected] = useState(initialForm);
 
+    const [valueOpenCloseForm, setValueOpenCloseForm] = useState(false);
+
     const handlerAddUser = (user) => {
         //console.log('Desde handler');
         //console.log(user);
-        let type;
 
-        if (user.id == 0) {
-            type = "addUser";
-        } else {
-            type = "updateUser";
-        }
         dispatch({
-            type, //Esto es lo mismo que colocar type:type, se abrevia porque la propiedad se llama igual que el valor
+            type: (user.id == 0) ? "addUser" : "updateUser", //Esto es lo mismo que colocar type:type, se abrevia porque la propiedad se llama igual que el valor
             payload: user,
         });
 
@@ -46,76 +42,35 @@ export const useUsers = () => {
             icon: "success"
         });
 
+        setValueOpenCloseForm(false);   
+        setUserSelected(initialForm);
+        console.log(userSelected);
+
     };
 
     const handlerDeleteUser = (id) => {
 
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
+        Swal.fire({
             title: "Está seguro que quiere eliminar el usuario?",
             text: "Cuidado, el usuario será eliminado!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Si, eliminar usuario!",
-            cancelButtonText: "No, cancelar!",
-            reverseButtons: true
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, eliminar!"
         }).then((result) => {
             if (result.isConfirmed) {
-
                 dispatch({
                     type: "deleteUser",
                     payload: id,
                 });
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger"
-                    },
-                    buttonsStyling: false
-                });
-                swalWithBootstrapButtons.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel!",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Cancelled",
-                            text: "Your imaginary file is safe :)",
-                            icon: "error"
-                        });
-                    }
-                });
-                swalWithBootstrapButtons.fire({
-                    title: "Eliminado!",
-                    text: "",
+                Swal.fire({
+                    title: "Eliminado con éxito!",
+                    text: "El usuario se elimino correctamente",
                     icon: "success"
                 });
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
+            }else{
+                Swal.fire({
                     title: "Cancelado",
                     text: "No se eliminó el usuario",
                     icon: "error"
@@ -126,17 +81,25 @@ export const useUsers = () => {
 
     const handlerUserSelectedForm = (user) => {
         setUserSelected({ ...user });
+        setValueOpenCloseForm(true);
     };
+
+    const openCloseForm = (value) => {
+        setValueOpenCloseForm(value ? true : false);
+        setUserSelected(initialForm);
+    }
 
     return {
         //Atributos que devolvemos
         users,
         userSelected,
         initialForm,
+        valueOpenCloseForm,
 
         //Funciones que devolvemos
         handlerAddUser,
         handlerDeleteUser,
         handlerUserSelectedForm,
+        openCloseForm,
     }
 }

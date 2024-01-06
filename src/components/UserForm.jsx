@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
+export const UserForm = ({ handlerAddUser, initialForm, userSelected, openCloseForm }) => {
   const [userForm, setUserForm] = useState(initialForm);
 
   const { id, userName, password, email } = userForm; //Desestructuro userForm
@@ -112,6 +112,9 @@ export const UserForm = ({ handlerAddUser, initialForm, userSelected }) => {
         <button type="submit" className="btn btn-primary">
           {id === 0 ? "Crear Usuario" : "Actualizar"}
         </button>
+        <button className="btn btn-primary m-3" type="button" onClick={() => openCloseForm(false)}>
+              Cerrar Formulario
+            </button>
       </form>
     </>
   );
